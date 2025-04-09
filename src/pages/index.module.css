@@ -4,7 +4,7 @@
 
 .heroBanner {
   padding: 4rem 0;
-  /*text-align: center;*/
+  text-align: center;
   position: relative;
   overflow: hidden;
 }
@@ -13,4 +13,40 @@
   .heroBanner {
     padding: 2rem;
   }
+}
+
+.heroBannerLogo {
+  max-width: 120px;
+  max-height: 120px;
+}
+
+.heroButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.featureBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featureImage {
+  align-items: center;
+  max-height: 128px;
+}
+
+.usedBy {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.usedBy > a > img {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: .75rem;
+  max-width: inherit;
+  width: 6rem;
 }
