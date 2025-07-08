@@ -4,6 +4,18 @@
 /* Preflight breaks existing docusaurus theme */
 /* @import "tailwindcss/preflight.css" layer(base); */
 @import "tailwindcss/utilities.css" layer(utilities);
+@plugin "@tailwindcss/typography";
+
+@theme {
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
 
 :root {
   --ifm-color-primary: #55acff;

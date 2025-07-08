@@ -4,7 +4,7 @@
 
 .heroBanner {
   padding: 4rem 0;
-  /*text-align: center;*/
+  text-align: center;
   position: relative;
   overflow: hidden;
 }
@@ -13,4 +13,43 @@
   .heroBanner {
     padding: 2rem;
   }
+}
+
+.heroButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.featureBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featureImage {
+  align-items: center;
+  max-height: 128px;
+}
+
+.usedBy__ticker__img {
+  margin: 0 2rem;
+  max-height: 50px;
+  min-width: 200px;
+  object-fit: contain;
+  width: 200px;
+}
+
+.separator {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.terminal {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  text-align: start;
+  max-width: 500px;
+  margin: 0 auto;
 }
