@@ -203,6 +203,7 @@ const config = {
       "./src/js/docsPluginWithTopLevel404.js",
       {
         sidebarPath: require.resolve("./sidebars.js"),
+        sidebarCollapsible: false,
         routeBasePath: "/",
         onlyIncludeVersions,
         lastVersion: onlyIncludeVersions
