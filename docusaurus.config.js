@@ -249,6 +249,7 @@ const config = {
     //     },
     //   },
     // ],
+    ["./src/plugins/tailwindcss.js", {}],
     function disableExpensiveBundlerOptimizationPlugin() {
       return {
         name: "disable-expensive-bundler-optimizations",
