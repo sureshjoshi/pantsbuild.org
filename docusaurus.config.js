@@ -4,7 +4,6 @@ import old_site_redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 import fs from "fs";
-import fsPromises from "fs/promises";
 import path from "path";
 
 import { themes as prismThemes } from "prism-react-renderer";
@@ -16,18 +15,18 @@ const numberOfSupportedStableVersions = 2;
 
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version").
-//  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
-// Note that `NODE_ENV === 'production' builds _everything_.
+//  - PANTS_VERSIONS=<version>,<version> -> Use 'current' version and versions specified
+
+console.log(`Running Docusaurus in ${[process.env.NODE_ENV]} mode...`);
 const isDev = process.env.NODE_ENV === "development";
 
 // Versions
-const onlyIncludeVersions = isDev
-  ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
-    ? ["current"].concat(
-        (process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS || "").split(",")
-      )
-    : ["current"]
-  : undefined;
+let onlyIncludeVersions = undefined;
+const extraVersions = process.env.PANTS_VERSIONS;
+if (extraVersions) {
+  onlyIncludeVersions = ["current"].concat((extraVersions || "").split(",").filter(Boolean));
+  console.log(`Running build including versions: '${onlyIncludeVersions}'`);
+}
 
 // In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
 // the newest in versions.json
@@ -220,32 +219,36 @@ const config = {
         },
       },
     ],
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: old_site_redirects.concat(renamed_path_redirects),
-        createRedirects(existingPath) {
-          if (existingPath.startsWith("/dev/")) {
-            return [existingPath.replace("/dev/", `/${currentVersion}/`)];
-          } else if (existingPath.startsWith("/prerelease/")) {
-            return [
-              existingPath.replace(
-                "/prerelease/",
-                `/${mostRecentPreReleaseVersion.shortVersion}/`
-              ),
-            ];
-          } else if (existingPath.startsWith("/stable/")) {
-            return [
-              existingPath.replace(
-                "/stable/",
-                `/${mostRecentStableVersion.shortVersion}/`
-              ),
-            ];
-          }
-          return undefined;
-        },
-      },
-    ],
+    // [
+    //   "@docusaurus/plugin-client-redirects",
+    //   {
+    //     redirects: old_site_redirects.concat(renamed_path_redirects),
+    //     createRedirects(existingPath) {
+    //       if (ignoreRedirects) {
+    //         console.log("IGNORE REDIRECTS")
+    //         return undefined;
+    //       }
+    //       if (existingPath.startsWith("/dev/")) {
+    //         return [existingPath.replace("/dev/", `/${currentVersion}/`)];
+    //       } else if (existingPath.startsWith("/prerelease/")) {
+    //         return [
+    //           existingPath.replace(
+    //             "/prerelease/",
+    //             `/${mostRecentPreReleaseVersion.shortVersion}/`
+    //           ),
+    //         ];
+    //       } else if (existingPath.startsWith("/stable/")) {
+    //         return [
+    //           existingPath.replace(
+    //             "/stable/",
+    //             `/${mostRecentStableVersion.shortVersion}/`
+    //           ),
+    //         ];
+    //       }
+    //       return undefined;
+    //     },
+    //   },
+    // ],
     function disableExpensiveBundlerOptimizationPlugin() {
       return {
         name: "disable-expensive-bundler-optimizations",
@@ -264,7 +267,7 @@ const config = {
           trackingID: "G-SEHBXJRF42",
           anonymizeIP: true,
         },
-        debug: process.env.NODE_ENV !== "production",
+        debug: isDev,
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
         blog: {
           showReadingTime: true,
