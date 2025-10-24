@@ -23,7 +23,7 @@ const isDev = process.env.NODE_ENV === "development";
 // Versions
 let onlyIncludeVersions = undefined;
 const extraVersions = process.env.PANTS_VERSIONS;
-if (extraVersions) {
+if (isDev || extraVersions) {
   onlyIncludeVersions = ["current"].concat((extraVersions || "").split(",").filter(Boolean));
   console.log(`Running build including versions: '${onlyIncludeVersions}'`);
 }

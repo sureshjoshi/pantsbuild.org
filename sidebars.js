@@ -21,7 +21,7 @@ const sidebars = {
     },
     {
       type: "ref",
-      id: "docs/introduction/how-does-pants-work",
+      id: "docs/getting-started/how-does-pants-work",
       label: "Docs",
     },
   ],
