@@ -15,9 +15,8 @@ const projectName = "pantsbuild.org";
 const numberOfSupportedStableVersions = 2;
 
 // Controls for how much to build:
-//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
+//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version").
 //  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
-//  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
 
@@ -150,9 +149,6 @@ const mostRecentStableVersion = versionDetails.find(
   ({ isPrerelease }) => !isPrerelease
 );
 
-// Blog
-const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
-
 // Other information
 const formatCopyright = () => {
   const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
@@ -270,7 +266,7 @@ const config = {
         },
         debug: process.env.NODE_ENV !== "production",
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
-        blog: includeBlog && {
+        blog: {
           showReadingTime: true,
           editUrl: `https://github.com/${organizationName}/${projectName}/edit/main/`,
           remarkPlugins: [captionedCode, tabBlocks],
