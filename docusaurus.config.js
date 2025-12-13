@@ -24,7 +24,9 @@ const isDev = process.env.NODE_ENV === "development";
 let onlyIncludeVersions = undefined;
 const extraVersions = process.env.PANTS_VERSIONS;
 if (isDev || extraVersions) {
-  onlyIncludeVersions = ["current"].concat((extraVersions || "").split(",").filter(Boolean));
+  onlyIncludeVersions = ["current"].concat(
+    (extraVersions || "").split(",").filter(Boolean)
+  );
   console.log(`Running build including versions: '${onlyIncludeVersions}'`);
 }
 
@@ -194,6 +196,33 @@ const config = {
   },
 
   plugins: [
+    // ["@docusaurus/theme-search-algolia", {}],
+    // // ["@docusaurus/plugin-content-docs", {}],
+
+    // ["@docusaurus/plugin-content-blog", {
+    //    showReadingTime: true,
+    //     editUrl: `https://github.com/${organizationName}/${projectName}/edit/main/`,
+    //     remarkPlugins: [captionedCode, tabBlocks],
+    //     blogSidebarTitle: "All posts",
+    //     blogSidebarCount: "ALL",
+    //     postsPerPage: "ALL",
+    // }],
+
+    // ["@docusaurus/plugin-content-pages", {}],
+
+    // isDev && ["@docusaurus/plugin-debug", {}],
+
+    // ["@docusaurus/plugin-google-gtag", {
+    //   trackingID: "G-SEHBXJRF42",
+    //   anonymizeIP: true,
+    // }],
+
+    // // ["@docusaurus/plugin-google-tag-manager", {}],
+
+    // ["@docusaurus/plugin-sitemap", {}],
+
+    // ["@docusaurus/plugin-svgr", {}],
+
     [
       "./src/js/docsPluginWithTopLevel404.js",
       {
@@ -219,6 +248,7 @@ const config = {
         },
       },
     ],
+
     // [
     //   "@docusaurus/plugin-client-redirects",
     //   {
@@ -249,6 +279,7 @@ const config = {
     //     },
     //   },
     // ],
+
     ["./src/plugins/tailwindcss.js", {}],
     function disableExpensiveBundlerOptimizationPlugin() {
       return {
@@ -290,7 +321,7 @@ const config = {
     navbar: {
       title: "Pantsbuild",
       logo: {
-        alt: "My Site Logo",
+        alt: "Pantsbuild homepage",
         src: "img/logo.svg",
       },
       items: [
@@ -298,7 +329,13 @@ const config = {
           type: "docSidebar",
           position: "left",
           sidebarId: "docsSidebar",
-          label: "Docs",
+          label: "Using Pants",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "extendingPantsSidebar",
+          label: "Extending Pants",
         },
         {
           type: "docSidebar",

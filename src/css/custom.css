@@ -1,9 +1,10 @@
 /* @import "tailwindcss"; */
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
+/* @layer theme, base, components, utilities; */
+@import "tailwindcss";
+/* @import "tailwindcss/theme.css" layer(theme); */
 /* Preflight breaks existing docusaurus theme */
 /* @import "tailwindcss/preflight.css" layer(base); */
-@import "tailwindcss/utilities.css" layer(utilities);
+/* @import "tailwindcss/utilities.css" layer(utilities) important; */
 @plugin "@tailwindcss/typography";
 
 @theme {
@@ -17,20 +18,64 @@
   }
 }
 
+/*
+ * Override the default Docusaurus Infirma global colours
+ * https://docusaurus.io/docs/styling-layout#styling-your-site-with-infima 
+ * 
+ * Reverting certain layers:
+ * https://github.com/facebook/docusaurus/pull/11142
+ */
 :root {
-  --ifm-color-primary: #55acff;
+  /* --ifm-color-primary: #55acff;
   --ifm-color-primary-dark: #339bff;
   --ifm-color-primary-darker: #2293ff;
-  --ifm-color-primary-darkest: #007aee;
+  --ifm-color-primary-darkest: #5e5f60;
   --ifm-color-primary-light: #77bdff;
   --ifm-color-primary-lighter: #88c5ff;
   --ifm-color-primary-lightest: #bbdeff;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --pants-reference-option-repr: #7c1dc8;
+  --ifm-code-font-size: 95%; */
+  /* --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1); */
+  /* --pants-reference-option-repr: #7c1dc8; */
+
+  @layer docusaurus.infima {
+    *,
+    *::before,
+    *::after {
+      all: revert-layer;
+    }
+  }
+
+  /* 
+   * Manually apply some pre-flight without breaking the entire layout 
+   * https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/preflight.css
+   */
+
+  /* a {
+  color: inherit;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit; */
+  /* } */
+
+  /* ol,
+  ul,
+  menu {
+    list-style: none; */
+
+  /* Resetting this piecemeal - as this affects everything in pre-flight */
+  /* box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  } */
+
+  /* --ifm-menu-link-padding-vertical: 4px */
 }
 
-[data-theme="dark"] {
+/*
+ * Override the default Docusaurus Infirma global colours
+ * https://docusaurus.io/docs/styling-layout#styling-your-site-with-infima 
+ */
+/* [data-theme="dark"] {
   --ifm-color-primary: #55acff;
   --ifm-color-primary-dark: #339bff;
   --ifm-color-primary-darker: #2293ff;
@@ -40,7 +85,7 @@
   --ifm-color-primary-lightest: #bbdeff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   --pants-reference-option-repr: #ab5ee8;
-}
+} */
 
 figcaption {
   font-size: 0.8rem;
@@ -72,3 +117,197 @@ div[class*="AnnouncementBar" i] a:hover {
   color: var(--ifm-link-color);
   text-decoration: underline;
 }
+
+/* .menu__list-item {
+  margin: 0;
+}
+
+.theme-doc-sidebar-item-category-level-1 {
+  margin-top: 16px;
+} */
+
+/* .theme-doc-sidebar-item-link-level-2 {
+  margin: 0;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.menu-link {
+  margin: 0;
+  padding: 0;
+} */
+
+/* 
+ * Dec 9, 2025: Enumerating all stable styles (commenting out the ones we don't change)
+ * https://docusaurus.io/docs/styling-layout#theme-class-names 
+ */
+
+/* Page classes */
+/* .blog-list-page */
+/* .blog-post-page */
+/* .blog-tags-list-page */
+/* .blog-tags-post-list-page */
+/* .blog-authors-list-page */
+/* .blog-authors-posts-page */
+/* .docs-doc-page */
+/* .docs-tags-list-page */
+/* .docs-tags-doc-list-page */
+/* .mdx-page */
+
+/* Wrapper classes */
+/* .main-wrapper */
+/* .blog-wrapper */
+/* .docs-wrapper */
+/* .mdx-wrapper */
+
+/* Common classes */
+/* .theme-edit-this-page */
+/* .theme-last-updated */
+/* .theme-back-to-top-button */
+/* .theme-code-block */
+/* .theme-admonition */
+/* .theme-unlisted-banner */
+/* .theme-draft-banner */
+/* admonitionType: (type: string) => `theme-admonition-${type}`, */
+
+/* Announcement bar classes */
+/* .theme-announcement-bar */
+
+/* Tabs classes */
+/* .theme-tabs-container */
+
+/* Navbar classes */
+/* .theme-layout-navbar */
+/* .theme-layout-navbar-left */
+/* .theme-layout-navbar-right */
+/* .theme-layout-navbar-sidebar */
+/* .theme-layout-navbar-sidebar-panel */
+
+/* Main classes */
+/* .theme-layout-main */
+
+/* Footer classes */
+/* .theme-layout-footer */
+/* .theme-layout-footer-column */
+
+/* Docs classes */
+/* .theme-doc-version-banner */
+/* .theme-doc-version-badge */
+/* .theme-doc-breadcrumbs */
+/* .theme-doc-markdown */
+/* .theme-doc-toc-mobile */
+/* .theme-doc-toc-desktop */
+/* .theme-doc-footer */
+/* .theme-doc-footer-tags-row */
+/* .theme-doc-footer-edit-meta-row */
+/* .theme-doc-sidebar-container */
+
+/* .theme-doc-sidebar-item-category { } */
+/* .theme-doc-sidebar-item-link */
+
+/* .theme-doc-sidebar-item-category-level-1{ } */
+/* .theme-doc-sidebar-item-link-level-${level} */
+/* .theme-doc-sidebar-item-link-level-2 { } */
+
+/* Blog classes */
+/* .theme-blog-footer-tags-row */
+/* .theme-blog-footer-edit-meta-row */
+
+/* Pages edit classes */
+/* .theme-pages-footer-edit-meta-row */
+
+/*** Navbar classes ***/
+.theme-layout-navbar {
+  > .navbar--fixed-top {
+    @apply sticky top-0 z-10;
+  }
+  > .navbar__inner {
+    @apply flex justify-between;
+  }
+
+  @apply border-b border-gray-900/10;
+}
+
+.theme-layout-navbar-left {
+  > .navbar__toggle {
+    @apply hidden;
+  }
+
+  > .navbar__brand {
+    @apply flex items-center;
+  }
+
+  > .navbar__logo {
+    @apply h-4! max-h-2;
+  }
+
+  @apply flex items-center;
+}
+/* .theme-layout-navbar-right */
+/* .theme-layout-navbar-sidebar */
+/* .theme-layout-navbar-sidebar-panel */
+
+.theme-doc-sidebar-menu {
+  &,
+  * {
+    @layer docusaurus.infima {
+      all: revert-layer;
+    }
+  }
+
+  @apply flex! flex-col! gap-y-4!;
+}
+
+/* Top-level sidebar sections ("Getting Started", "Backends", etc) */
+.theme-doc-sidebar-item-category-level-1 {
+  > .menu__list-item-collapsible {
+    @apply font-mono! text-sm/6! font-bold! text-gray-500! tracking-wide! uppercase!;
+  }
+}
+
+/* Nested sections within the top-level section */
+.theme-doc-sidebar-item-category-level-2 {
+  @apply pl-3! border-l! border-gray-300! hover:border-gray-600! text-sm/6!;
+}
+
+/* Clickable pages - the majority of links are these */
+.theme-doc-sidebar-item-link-level-2 {
+  > .menu__link {
+    @apply text-sm! text-gray-900! hover:text-blue-500!;
+  }
+
+  > .menu__link--active {
+    @apply text-blue-600! border-blue-600!;
+  }
+
+  @apply pl-3! border-l! border-gray-300! hover:border-gray-600!;
+}
+
+/* Clickable pages - that are in a nested hierarchy (e.g. Python -> Overview -> Interpreters */
+.theme-doc-sidebar-item-link-level-3 {
+  @apply pl-3! hover:text-blue-500! text-sm!;
+}
+
+/*** Infima theme resets (remove this theme once we've ported over) ***/
+
+/* Related to theme-doc-sidebar-menu
+ * Comes from theme-classic and is required for all the components we use
+ * Heavily styled by infirma-theme 
+ */
+/* .menu {
+  &, * {
+    all: revert;
+  }
+  @apply p-4 overflow-y-auto!;
+}
+
+.menu__list {
+  &, * {
+    all: revert;
+  }
+}
+
+.menu__link {
+  &, * {
+    all: revert;
+  }
+} */
