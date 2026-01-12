@@ -233,7 +233,7 @@ div[class*="AnnouncementBar" i] a:hover {
 
   > .navbar__brand {
     > .navbar__logo > img {
-        @apply h-8;
+      @apply h-8;
     }
     @apply flex items-center;
   }
@@ -241,7 +241,6 @@ div[class*="AnnouncementBar" i] a:hover {
   > .navbar__item {
     @apply text-sm/6;
   }
-
 }
 .theme-layout-navbar-right {
   @apply flex items-center gap-4;
@@ -253,8 +252,6 @@ div[class*="AnnouncementBar" i] a:hover {
       @apply hidden!;
     }
   }
-
-  
 
   > .navbar__item {
     @apply text-sm/6;
