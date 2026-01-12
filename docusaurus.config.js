@@ -14,7 +14,7 @@ const projectName = "pantsbuild.org";
 const numberOfSupportedStableVersions = 2;
 
 // Controls for how much to build:
-//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version").
+//  TODO??? Default uses everything? - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version").
 //  - PANTS_VERSIONS=<version>,<version> -> Use 'current' version and versions specified
 
 console.log(`Running Docusaurus in ${[process.env.NODE_ENV]} mode...`);
@@ -24,6 +24,7 @@ const isDev = process.env.NODE_ENV === "development";
 let onlyIncludeVersions = undefined;
 const extraVersions = process.env.PANTS_VERSIONS;
 if (isDev || extraVersions) {
+  // TODO: De-dupe - not necessary, but makes for better logs
   onlyIncludeVersions = ["current"].concat(
     (extraVersions || "").split(",").filter(Boolean)
   );
